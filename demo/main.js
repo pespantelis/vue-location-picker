@@ -1,7 +1,14 @@
 import Vue from 'vue'
-import MyComponent from '../src/MyComponent.vue'
+import LocationPicker from '../src/LocationPicker.vue'
 
-new Vue({
+global.app = new Vue({
   el: 'body',
-  components: { MyComponent }
+
+  components: { LocationPicker },
+
+  methods: {
+    initLocationPicker () {
+      this.$broadcast('location-picker-init')
+    }
+  }
 })
