@@ -11,6 +11,15 @@
   import InfoWindow from './InfoWindow.vue'
 
   export default {
+    props: {
+      options: {
+        type: Object,
+        default () {
+          return {}
+        }
+      }
+    },
+
     data () {
       return {
         geocoder: null,
@@ -27,26 +36,26 @@
       'location-picker-init' () {
         this.geocoder = new google.maps.Geocoder()
 
-        this.map = new google.maps.Map(this.$els.map, {
+        this.map = new google.maps.Map(this.$els.map, Object.assign({
           center: {lat: 39.3622, lng: 22.9422},
           zoom: 8,
           disableDefaultUI: true
-        })
+        }, this.options.map))
 
-        this.marker = new google.maps.Marker({
+        this.marker = new google.maps.Marker(Object.assign({
           map: this.map,
           position: this.map.getCenter(),
           draggable: true
-        })
+        }, this.options.marker))
 
-        this.infoWindow = new google.maps.InfoWindow({
+        this.infoWindow = new google.maps.InfoWindow(Object.assign({
           content: this.$refs.info.$el,
           maxWidth: 260
-        })
+        }, this.options.infoWindow))
 
-        this.autocomplete = new google.maps.places.Autocomplete(this.$els.input, {
+        this.autocomplete = new google.maps.places.Autocomplete(this.$els.input, Object.assign({
           types: ['geocode']
-        })
+        }, this.options.autocomplete))
         this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.$els.input)
 
         // events
