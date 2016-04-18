@@ -1,6 +1,7 @@
 <template>
   <div class="LocationPicker">
     <div class="LocationPicker__map" v-el:map></div>
+    <input type="text" class="LocationPicker__autocomplete" v-el:input/>
     <info-window class="LocationPicker__info-window" v-ref:info></info-window>
   </div>
 </template>
@@ -15,7 +16,8 @@
         geocoder: null,
         map: null,
         marker: null,
-        infoWindow: null
+        infoWindow: null,
+        autocomplete: null
       }
     },
 
@@ -42,10 +44,16 @@
           maxWidth: 260
         })
 
+        this.autocomplete = new google.maps.places.Autocomplete(this.$els.input, {
+          types: ['geocode']
+        })
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.$els.input)
+
         // events
         google.maps.event.addListenerOnce(this.map, 'idle', this.openInfoWindow)
         this.marker.addListener('dragstart', this.closeInfoWindow)
         this.marker.addListener('dragend', this.geocodeLocation)
+        this.autocomplete.addListener('place_changed', this.moveMarker)
       }
     },
 
@@ -60,6 +68,7 @@
 
       geocodeLocation (e) {
         this.map.panTo(e.latLng)
+        this.$els.input.value = ''
 
         this.geocoder.geocode({'latLng': e.latLng}, (response) => {
           if (response && response.length > 0) {
@@ -70,6 +79,17 @@
 
           this.openInfoWindow()
         })
+      },
+
+      moveMarker () {
+        var place = this.autocomplete.getPlace()
+        var location = place.geometry && place.geometry.location
+
+        if (location) {
+          this.map.panTo(location)
+          this.marker.setPosition(location)
+          this.$refs.info.showAddress(place)
+        }
       }
     }
   }
@@ -82,6 +102,21 @@
     height: 100%;
   }
 
+  .LocationPicker__autocomplete {
+    padding: 7px 14px;
+    margin: 10px;
+    width: 30%;
+    min-width: 300px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    border: 0;
+    border-radius: 2px 0 0 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .LocationPicker > .LocationPicker__autocomplete,
   .LocationPicker > .LocationPicker__info-window {
     display: none;
   }
