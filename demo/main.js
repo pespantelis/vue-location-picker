@@ -1,8 +1,15 @@
 import Vue from 'vue'
+import LocationPickerInit from '../src/init'
 import LocationPicker from '../src/LocationPicker.vue'
 
-global.app = new Vue({
+new Vue({
   el: 'body',
+
+  ready () {
+    LocationPickerInit(this, {
+      key: 'AIzaSyBmBM_Utpx3unBuhiTTR5yMptdMZSxelo4'
+    })
+  },
 
   data: {
     mapOptions: {
@@ -16,11 +23,5 @@ global.app = new Vue({
     }
   },
 
-  components: { LocationPicker },
-
-  methods: {
-    initLocationPicker () {
-      this.$broadcast('location-picker-init')
-    }
-  }
+  components: { LocationPicker }
 })
