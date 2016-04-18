@@ -17,5 +17,9 @@ new Vue({
     })
   },
 
+  data: {
+    place: null
+  },
+
   components: { LocationPicker }
 })

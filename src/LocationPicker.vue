@@ -11,6 +11,13 @@
   import InfoWindow from './InfoWindow.vue'
 
   export default {
+    props: {
+      place: {
+        type: Object,
+        twoWay: true
+      }
+    },
+
     data () {
       return {
         geocoder: null,
@@ -71,8 +78,10 @@
 
         this.geocoder.geocode({'latLng': e.latLng}, (response) => {
           if (response && response.length > 0) {
-            this.$refs.info.showAddress(response[0])
+            this.place = response[0]
+            this.$refs.info.showAddress(this.place)
           } else {
+            this.place = null
             this.$refs.info.showError()
           }
 
@@ -85,6 +94,7 @@
         var location = place.geometry && place.geometry.location
 
         if (location) {
+          this.place = place
           this.map.panTo(location)
           this.marker.setPosition(location)
           this.$refs.info.showAddress(place)
