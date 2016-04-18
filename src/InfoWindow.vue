@@ -11,7 +11,7 @@
     data () {
       return {
         title: 'Instructions',
-        body: 'Click and drag this red marker to pick your location.'
+        body: 'Click and drag this marker to pick your location.'
       }
     },
 
