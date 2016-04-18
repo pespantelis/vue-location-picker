@@ -1,4 +1,4 @@
-export default function (app, config) {
+export default function (app, config, options) {
   if (!config.key) {
     console.error('[Vue Location Picker warn]: You should give a Google Maps API key')
     return
@@ -9,7 +9,7 @@ export default function (app, config) {
 
   // set the callback function
   global.initLocationPicker = () => {
-    app.$broadcast('location-picker-init')
+    app.$broadcast('location-picker-init', options || {})
   }
 
   // construct the url
