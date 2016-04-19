@@ -1,4 +1,4 @@
-export default function (app, config, options) {
+module.exports = (app, config, options) => {
   if (!config.key) {
     console.error('[Vue Location Picker warn]: You should give a Google Maps API key')
     return
