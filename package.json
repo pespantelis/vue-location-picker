@@ -1,7 +1,22 @@
 {
-  "name": "",
-  "description": "",
+  "name": "vue-location-picker",
+  "version": "1.0.0",
   "author": "Pantelis Peslis <pespantelis@gmail.com>",
+  "license": "MIT",
+  "description": "Location Picker component for Vue.js",
+  "keywords": [
+    "vue",
+    "location",
+    "picker",
+    "googlemaps"
+  ],
+  "main": "src/LocationPicker.vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pespantelis/vue-location-picker.git"
+  },
+  "bugs": "https://github.com/pespantelis/vue-location-picker/issues",
+  "homepage": "http://pespantelis.github.io/vue-location-picker/",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
