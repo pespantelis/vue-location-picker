@@ -5,3 +5,86 @@ body, html {
 body {
   margin: 0;
 }
+
+h1, h4 {
+  cursor: default;
+}
+
+a {
+  text-decoration: none
+}
+
+h1 {
+  margin: 0;
+  font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+  font-weight: 300;
+  font-size: 4em;
+  color: #2c3e50;
+}
+
+h4, a {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #7f8c8d;
+}
+
+.container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,1) 40%);
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.location {
+  font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+  color: #5dc596;
+}
+
+.social {
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.social iframe {
+  margin: 0 4px;
+}
+
+.button {
+  display: inline-block;
+  width: 180px;
+  padding: 12px 14px;
+  background-color: #4fc08d;
+  font-weight: 700;
+  color: #fff;
+  border-bottom: 2px solid #3aa373;
+  border-radius: 4px;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+}
+
+.button:hover {
+  background-color: #5dc596;
+  -webkit-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  transform: translate(0, -2px);
+}
