@@ -29,6 +29,12 @@ h4, a {
   color: #7f8c8d;
 }
 
+img.google {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+}
+
 .container {
   position: absolute;
   bottom: 0;
