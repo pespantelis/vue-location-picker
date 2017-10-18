@@ -1,8 +1,8 @@
 <template>
   <div class="LocationPicker">
-    <div class="LocationPicker__map" v-el:map></div>
-    <input type="text" class="LocationPicker__autocomplete" v-el:input/>
-    <info-window class="LocationPicker__info-window" v-ref:info></info-window>
+    <div class="LocationPicker__map" ref="map"></div>
+    <input type="text" class="LocationPicker__autocomplete" ref="input"/>
+    <info-window class="LocationPicker__info-window" ref="info"></info-window>
   </div>
 </template>
 
@@ -34,7 +34,7 @@
       'location-picker-init' (options) {
         this.geocoder = new google.maps.Geocoder()
 
-        this.map = new google.maps.Map(this.$els.map, Object.assign({
+        this.map = new google.maps.Map(this.$refs.map, Object.assign({
           center: { lat: 0, lng: 0 },
           zoom: 3,
           disableDefaultUI: true
@@ -50,10 +50,10 @@
           content: this.$refs.info.$el
         }, options.infoWindow))
 
-        this.autocomplete = new google.maps.places.Autocomplete(this.$els.input, Object.assign({
+        this.autocomplete = new google.maps.places.Autocomplete(this.$refs.input, Object.assign({
           types: ['geocode']
         }, options.autocomplete))
-        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.$els.input)
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.$refs.input)
 
         // events
         google.maps.event.addListenerOnce(this.map, 'idle', this.openInfoWindow)
@@ -74,7 +74,7 @@
 
       geocodeLocation (e) {
         this.map.panTo(e.latLng)
-        this.$els.input.value = ''
+        this.$refs.input.value = ''
 
         this.geocoder.geocode({'latLng': e.latLng}, (response) => {
           if (response && response.length > 0) {

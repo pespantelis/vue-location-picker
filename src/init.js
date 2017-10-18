@@ -1,20 +1,26 @@
-module.exports = (app, config, options) => {
-  if (!config.key) {
+import Vue from 'vue'
+import LocationPicker from './LocationPicker.vue'
+
+export function install (app, options) {
+  if (! options.config || !options.config.key) {
     console.error('[Vue Location Picker warn]: You should give a Google Maps API key')
     return
   }
 
-  config.libraries = 'places'
-  config.callback = 'initLocationPicker'
+  options.libraries = 'places'
+  options.callback = 'initLocationPicker'
+
+  // set the global event bus
+  global.vueLocationPickerEventBus = new Vue()
 
   // set the callback function
   global.initLocationPicker = () => {
-    app.$broadcast('location-picker-init', options || {})
+    global.vueLocationPickerEventBus.$emit('location-picker-init')
   }
 
   // construct the url
   var apiUrl = 'https://maps.googleapis.com/maps/api/js'
-  var params = Object.keys(config).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(config[key])}`)
+  var params = Object.keys(options).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(options[key])}`)
   var url = `${apiUrl}?${params.join('&')}`
 
   // create and append the script to body
@@ -23,4 +29,6 @@ module.exports = (app, config, options) => {
   script.async = true
   script.defer = true
   document.body.appendChild(script)
+
+  app.component('location-picker', LocationPicker)
 }
